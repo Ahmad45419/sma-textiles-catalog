@@ -3,14 +3,122 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SMA Textiles | Premium Towels, Bed Linen &amp; Home Textile Catalog</title>
+    <title>SMA Textiles | Premium Towels, Bed Linen & Home Textile Catalog</title>
     <meta
       name="description"
       content="Premium towels, bed linen, bathrobes, hotel linen, kitchen linen, and custom textile products for wholesale, hospitality, retail, and export buyers."
     />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div id="loader" class="loader">
+      <p class="loader-label">SMA Textiles</p>
+      <h1>Premium Towels, Bed Linen & Home Textiles</h1>
+    </div>
+
+    <header class="site-header" id="top">
+      <a href="#top" class="logo">SMA Textiles</a>
+      <button id="mobileMenuBtn" class="menu-btn" aria-label="Open menu">☰</button>
+      <nav id="menu" class="menu">
+        <a href="#home">Home</a>
+        <a href="#catalog">Catalog</a>
+        <a href="#towels">Towels</a>
+        <a href="#bed-linen">Bed Linen</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a class="cta-link" href="https://wa.me/923206700026" target="_blank" rel="noreferrer">WhatsApp</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="home" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content reveal">
+          <p class="eyebrow">TEXTILE MANUFACTURER & EXPORT SUPPLIER</p>
+          <h1>Premium Towels, Bed Linen & Home Textiles</h1>
+          <p>
+            Quality textile products for hotels, retailers, wholesalers, and international buyers.
+          </p>
+          <div class="hero-actions">
+            <a href="#catalog" class="btn btn-light">View Catalog</a>
+            <a href="#contact" class="btn btn-outline">Request Quote</a>
+            <a href="https://wa.me/923206700026" target="_blank" rel="noreferrer" class="btn btn-accent">WhatsApp</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="statement reveal">
+        <p>
+          SMA Textiles delivers quality towels, bed linen, bathrobes, hotel linen, and custom textile products with buyer-focused manufacturing, reliable finishing, and export-ready packaging.
+        </p>
+        <div class="stamp">SMA Textiles · Manufactured with care</div>
+      </section>
+
+      <section class="categories reveal">
+        <h2>Product Categories</h2>
+        <div id="categoryGrid" class="category-grid"></div>
+      </section>
+
+      <section id="catalog" class="catalog reveal">
+        <h2>Featured Product Catalog</h2>
+        <div class="catalog-controls">
+          <input id="searchInput" type="search" placeholder="Search by name, category, material, GSM, thread count, usage" />
+          <div id="filterButtons" class="filter-buttons"></div>
+        </div>
+        <div id="productGrid" class="product-grid"></div>
+      </section>
+
+      <section class="showcase">
+        <article class="showcase-card"><span>Softness</span></article>
+        <article class="showcase-card"><span>Durability</span></article>
+        <article class="showcase-card"><span>Export Quality</span></article>
+        <article class="showcase-card"><span>Custom Manufacturing</span></article>
+      </section>
+
+      <section id="about" class="about reveal">
+        <h2>About SMA Textiles</h2>
+        <p>
+          SMA Textiles is a textile manufacturing business offering quality towels, bed linen, bathrobes, hotel linen, kitchen linen, and custom textile products for wholesale, hospitality, retail, and export markets. We focus on durable fabric, fine stitching, comfortable finishing, customization, and reliable order handling.
+        </p>
+        <div class="feature-grid">
+          <span>Custom sizes</span><span>Custom colors</span><span>Bulk orders</span><span>Export-ready packaging</span><span>Hotel and retail supply</span><span>Quality control</span>
+        </div>
+      </section>
+
+      <section class="trust reveal">
+        <h2>Trusted for wholesale, hotel, retail, and export textile supply.</h2>
+        <div class="trust-badges">
+          <span>Hotel Supply</span><span>Wholesale Orders</span><span>Custom Manufacturing</span><span>Export Packaging</span><span>Private Label</span>
+        </div>
+      </section>
+
+      <section id="contact" class="contact reveal">
+        <h2>Request a Quote</h2>
+        <form id="quoteForm" class="contact-form">
+          <input required placeholder="Name" />
+          <input placeholder="Company Name" />
+          <input placeholder="Country" />
+          <input required type="email" placeholder="Email" />
+          <input placeholder="WhatsApp Number" />
+          <select>
+            <option>Product Category</option>
+            <option>Towels</option><option>Bed Linen</option><option>Bathrobes</option><option>Hotel Linen</option><option>Kitchen Linen</option><option>Custom</option>
+          </select>
+          <textarea id="messageField" placeholder="Message / Requirement" rows="5"></textarea>
+          <button type="submit" class="btn btn-accent">Send Inquiry</button>
+        </form>
+        <p>Email: textiles.sma1@gmail.com · Phone/WhatsApp: 03206700026 · <a href="https://wa.me/923206700026" target="_blank" rel="noreferrer">Chat on WhatsApp</a></p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <h3>SMA Textiles</h3>
+      <p>Premium Towels, Bed Linen & Home Textile Catalog</p>
+      <p>© <span id="year"></span> SMA Textiles</p>
+    </footer>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
