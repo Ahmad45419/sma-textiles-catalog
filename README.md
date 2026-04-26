@@ -17,17 +17,54 @@ Premium, animated B2B textile catalog website for SMA Textiles built with **Reac
 - Framer Motion
 - lucide-react
 
+## Requirements
+- Node.js `20.19+` (or newer LTS).
+- npm `10+`.
+
 ## Local Development
 ```bash
-npm install
+npm ci
 npm run dev
 ```
+
+Then open: `http://localhost:5173/`.
 
 ## Production Build
 ```bash
 npm run build
 npm run preview
 ```
+
+
+## Windows Command Prompt tip
+If your prompt is on `C:` and the project is on `E:`, use:
+```bat
+cd /d E:\sma-textiles-catalog-main
+```
+Then confirm you are in the right folder before running npm:
+```bat
+dir package.json
+npm ci
+npm run dev
+```
+
+## Troubleshooting (blank page / white screen)
+If you see a blank page at `localhost:5173`:
+1. Stop the server.
+2. Reinstall with lockfile versions:
+   ```bash
+   rm -rf node_modules
+   npm ci
+   npm run dev
+   ```
+   On Windows CMD:
+   ```bat
+   rmdir /s /q node_modules
+   npm ci
+   npm run dev
+   ```
+3. Open browser DevTools Console for runtime errors.
+4. Ensure you are running the **local project Vite** from this folder, not a global Vite install.
 
 ## Deployment
 ### Vercel

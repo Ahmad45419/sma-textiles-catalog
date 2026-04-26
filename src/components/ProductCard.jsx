@@ -1,5 +1,17 @@
 import { motion } from 'framer-motion';
 
+const asListText = (value) => {
+  if (Array.isArray(value)) {
+    return value.length ? value.join(', ') : 'Available on request';
+  }
+
+  if (typeof value === 'string' && value.trim()) {
+    return value;
+  }
+
+  return 'Available on request';
+};
+
 const ProductCard = ({ product, onRequestQuote }) => (
   <motion.article
     whileHover={{ y: -6 }}
@@ -17,8 +29,8 @@ const ProductCard = ({ product, onRequestQuote }) => (
       {product.gsm && <p className="text-sm text-ink/70"><strong>GSM:</strong> {product.gsm}</p>}
       {product.threadCount && <p className="text-sm text-ink/70"><strong>Thread Count:</strong> {product.threadCount}</p>}
       {product.includes && <p className="text-sm text-ink/70"><strong>Includes:</strong> {product.includes}</p>}
-      <p className="text-sm text-ink/70"><strong>Sizes:</strong> {product.sizes.join(', ')}</p>
-      <p className="text-sm text-ink/70"><strong>Colors:</strong> {product.colors.join(', ')}</p>
+      <p className="text-sm text-ink/70"><strong>Sizes:</strong> {asListText(product.sizes)}</p>
+      <p className="text-sm text-ink/70"><strong>Colors:</strong> {asListText(product.colors)}</p>
       <p className="text-sm text-ink/70"><strong>Usage:</strong> {product.usage}</p>
       <p className="text-sm text-ink/70"><strong>MOQ:</strong> {product.moq}</p>
       <button
