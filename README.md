@@ -1,22 +1,43 @@
-# SMA Textiles Website (No Build Tools Required)
+# SMA Textiles
 
-This project now runs as a **plain HTML/CSS/JavaScript** website so it can be previewed directly in restricted environments without `npm install`.
+Premium, animated B2B textile catalog website for SMA Textiles built with **React + Tailwind CSS + Framer Motion**.
 
-## Preview
-Open this file directly:
+## Features
+- Cinematic hero with animated intro loader.
+- Sticky/floating navigation with animated mobile menu.
+- Product category showcase cards.
+- Searchable and filterable catalog with quote-request actions.
+- Immersive product showcase storytelling.
+- About, Why Choose Us, Buyer Trust, and Contact/Inquiry sections.
+- Buyer-focused content for towels, bed linen, bathrobes, hotel linen, kitchen linen, and custom products.
 
-- `index.html`
+## Tech Stack
+- React (Vite)
+- Tailwind CSS
+- Framer Motion
+- lucide-react
 
-If your preview system supports local web servers, you can also run:
-
+## Local Development
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
+## Production Build
+```bash
+npm run build
+npm run preview
+```
 
-## Files
-- `index.html` — main page structure and SEO metadata.
-- `styles.css` — premium cinematic styling, responsive layout, transitions, and reveal effects.
-- `data.js` — editable categories and product catalog data.
-- `script.js` — filtering, search, quote prefill, menu toggle, and scroll animations.
+## Deployment
+### Vercel
+1. Import this repository in Vercel.
+2. Build command: `npm run build`
+3. Output directory: `dist`
+4. Deploy.
+
+### Netlify
+1. Import this repository in Netlify.
+2. Build command: `npm run build`
+3. Publish directory: `dist`
+4. Deploy.
