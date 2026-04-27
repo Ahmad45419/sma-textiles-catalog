@@ -1,18 +1,72 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { useEffect, useMemo, useState } from 'react';
+import { motion, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
 
 const tags = ['Hotel Programs', 'Export Ready', 'Private Label', 'Retail Collections'];
 
+const MAX_SHIFT = 22;
 const Hero = () => {
   const { scrollYProgress } = useScroll();
-  const bgScale = useTransform(scrollYProgress, [0, 0.35], [1, 1.12]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '24%']);
+  const bgBaseScale = useTransform(scrollYProgress, [0, 0.35], [1.02, 1.1]);
   const foregroundY = useTransform(scrollYProgress, [0, 0.25], [0, -40]);
+  const scrollOffsetY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+
+  const mouseTargetX = useMotionValue(0);
+  const mouseTargetY = useMotionValue(0);
+
+  const bgX = useSpring(mouseTargetX, { stiffness: 80, damping: 22, mass: 0.9 });
+  const bgMouseY = useSpring(mouseTargetY, { stiffness: 80, damping: 22, mass: 0.9 });
+
+  const tagX = useSpring(useTransform(mouseTargetX, (v) => v * 0.45), { stiffness: 65, damping: 20 });
+  const tagY = useSpring(useTransform(mouseTargetY, (v) => v * 0.45), { stiffness: 65, damping: 20 });
+
+  const bgY = useTransform([scrollOffsetY, bgMouseY], ([scrollY, mouseY]) => scrollY + mouseY);
+
+  const [interactive, setInteractive] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const update = () => setInteractive(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
+  const handlers = useMemo(() => {
+    if (!interactive) {
+      return {
+        onMouseMove: undefined,
+        onMouseLeave: undefined,
+      };
+    }
+
+    return {
+      onMouseMove: (event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+
+        const relativeX = (event.clientX - centerX) / (rect.width / 2);
+        const relativeY = (event.clientY - centerY) / (rect.height / 2);
+
+        const clampedX = Math.max(-1, Math.min(1, relativeX));
+        const clampedY = Math.max(-1, Math.min(1, relativeY));
+
+        mouseTargetX.set(clampedX * -MAX_SHIFT);
+        mouseTargetY.set(clampedY * -MAX_SHIFT);
+      },
+      onMouseLeave: () => {
+        mouseTargetX.set(0);
+        mouseTargetY.set(0);
+      },
+    };
+  }, [interactive, mouseTargetX, mouseTargetY]);
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden bg-charcoal text-sand">
+    <section id="home" className="relative min-h-screen overflow-hidden bg-charcoal text-sand" {...handlers}>
       <motion.div
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center opacity-35"
+        style={{ x: bgX, y: bgY, scale: bgBaseScale, willChange: 'transform' }}
+        className="absolute -inset-8 bg-[url('https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=2200&q=80')] bg-cover bg-center opacity-35"
         aria-hidden="true"
       />
       <div className="absolute inset-0 bg-noise" aria-hidden="true" />
@@ -70,19 +124,20 @@ const Hero = () => {
           </a>
         </motion.div>
 
-        <div className="mt-14 flex flex-wrap gap-3">
+        <motion.div className="mt-14 flex flex-wrap gap-3" style={{ x: tagX, y: tagY }}>
           {tags.map((tag, i) => (
             <motion.span
               key={tag}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.45 + i * 0.08 }}
+              whileHover={interactive ? { y: -2 } : undefined}
               className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-sand/90 backdrop-blur"
             >
               {tag}
             </motion.span>
           ))}
-        </div>
+        </motion.div>
       </motion.div>
 
       <motion.div
