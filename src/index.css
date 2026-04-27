@@ -15,8 +15,53 @@ body,
   scroll-behavior: smooth;
 }
 
+body {
+  background: #f4efe6;
+  color: #0f172a;
+}
+
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(198, 166, 103, 0.35);
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+}
+
+::-webkit-scrollbar-track {
+  background: #171a22;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(#c6a667, #7c7a4f);
+  border-radius: 99px;
+}
+
+.cinematic-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, transparent 35%, rgba(255, 255, 255, 0.2), transparent 65%);
+  transform: translateX(-130%);
+  transition: transform 0.75s ease;
+  pointer-events: none;
+}
+
+.cinematic-card:hover::after {
+  transform: translateX(130%);
+}
+
+.cinematic-panel {
+  background-image: radial-gradient(circle at 0% 0%, rgba(198, 166, 103, 0.18), transparent 55%),
+    radial-gradient(circle at 95% 95%, rgba(124, 122, 79, 0.17), transparent 45%);
+}
+
+.micro-glow {
+  box-shadow: 0 8px 35px rgba(244, 239, 230, 0.18);
 }
 
 .input {
